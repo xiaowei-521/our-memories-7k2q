@@ -1,0 +1,18 @@
+.gitignore
+  h_25ce05bdaee106 1-2
+index.html
+  h_25ce05bdaee106 379
+告白气球网页/index.html
+  h_25ce05bdaee106 1-360
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "9173a8fb4dc45571334d02a10db4eb024b643012",
+  "prompts": {},
+  "humans": {
+    "h_25ce05bdaee106": {
+      "author": "kael.chen <kael.chen@jtexpress.com>"
+    }
+  }
+}
