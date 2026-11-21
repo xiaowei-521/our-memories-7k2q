@@ -1,0 +1,14 @@
+.gitignore
+  h_25ce05bdaee106 1-4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "50fd411b732b4ac206e5954f91a8fa68b82769c9",
+  "prompts": {},
+  "humans": {
+    "h_25ce05bdaee106": {
+      "author": "kael.chen <kael.chen@jtexpress.com>"
+    }
+  }
+}
