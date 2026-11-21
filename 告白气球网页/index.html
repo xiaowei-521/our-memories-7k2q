@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>💌 致慧宝儿</title>
+<style>
+  /* ============ 全局 ============ */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: linear-gradient(180deg, #1a1a3e 0%, #4a2c6d 45%, #b06ab3 80%, #ff9a9e 100%);
+    overflow: hidden;
+    position: relative;
+    height: 100vh;
+    color: #fff;
+  }
+
+  /* ============ 星空 ============ */
+  .star {
+    position: fixed;
+    background: #fff;
+    border-radius: 50%;
+    animation: twinkle 3s infinite ease-in-out;
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: .2; transform: scale(1); }
+    50%      { opacity: 1;  transform: scale(1.4); }
+  }
+
+  /* ============ 漂浮气球 ============ */
+  .balloon {
+    position: fixed;
+    bottom: -160px;
+    width: 70px; height: 88px;
+    border-radius: 50% 50% 50% 50% / 55% 55% 45% 45%;
+    animation: rise linear forwards;
+    z-index: 1;
+  }
+  /* 气球高光 */
+  .balloon::before {
+    content: '';
+    position: absolute;
+    top: 12px; left: 14px;
+    width: 16px; height: 24px;
+    background: rgba(255,255,255,.45);
+    border-radius: 50%;
+    transform: rotate(-20deg);
+  }
+  /* 气球绳子 */
+  .balloon::after {
+    content: '';
+    position: absolute;
+    bottom: -46px; left: 50%;
+    width: 2px; height: 46px;
+    background: rgba(255,255,255,.5);
+  }
+  @keyframes rise {
+    0%   { bottom: -160px; transform: translateX(0) rotate(-3deg); }
+    25%  { transform: translateX(14px) rotate(3deg); }
+    50%  { transform: translateX(-12px) rotate(-3deg); }
+    75%  { transform: translateX(12px) rotate(3deg); }
+    100% { bottom: 110vh; transform: translateX(-6px) rotate(-2deg); }
+  }
+
+  /* 漂浮爱心 */
+  .heart-float {
+    position: fixed;
+    animation: heartRise linear forwards;
+    z-index: 1;
+    text-shadow: 0 0 12px rgba(255,105,180,.8);
+  }
+  @keyframes heartRise {
+    0%   { bottom: -60px; transform: scale(.6) rotate(-10deg); opacity: 0; }
+    15%  { opacity: 1; }
+    100% { bottom: 105vh; transform: scale(1.2) rotate(12deg); opacity: .9; }
+  }
+
+  /* ============ 开场信封 ============ */
+  #gate {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    background: rgba(0,0,0,.18);
+    transition: opacity 1s;
+  }
+  #gate.fadeout { opacity: 0; pointer-events: none; }
+  .envelope {
+    font-size: 88px;
+    animation: bounce 2s infinite ease-in-out;
+    filter: drop-shadow(0 10px 24px rgba(255,105,180,.55));
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0) rotate(-4deg); }
+    50%      { transform: translateY(-16px) rotate(4deg); }
+  }
+  .gate-title {
+    margin-top: 28px;
+    font-size: 26px;
+    letter-spacing: 4px;
+    text-shadow: 0 0 18px rgba(255,182,193,.9);
+  }
+  .gate-sub {
+    margin-top: 12px;
+    font-size: 15px;
+    opacity: .85;
+    letter-spacing: 2px;
+  }
+  #openBtn {
+    margin-top: 34px;
+    padding: 14px 46px;
+    font-size: 18px;
+    letter-spacing: 6px;
+    color: #fff;
+    background: linear-gradient(135deg, #ff6b9d, #ff8e53);
+    border: none;
+    border-radius: 40px;
+    cursor: pointer;
+    box-shadow: 0 8px 26px rgba(255,107,157,.55);
+    transition: transform .25s, box-shadow .25s;
+    animation: glow 2.2s infinite;
+  }
+  #openBtn:hover { transform: scale(1.08); box-shadow: 0 12px 34px rgba(255,107,157,.8); }
+  @keyframes glow {
+    0%, 100% { box-shadow: 0 8px 26px rgba(255,107,157,.45); }
+    50%      { box-shadow: 0 8px 40px rgba(255,107,157,.85); }
+  }
+
+  /* ============ 表白信正文 ============ */
+  #letter {
+    position: relative;
+    z-index: 5;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 12vh 28px 160px;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1.6s ease, transform 1.6s ease;
+  }
+  #letter.show { opacity: 1; transform: translateY(0); }
+  #letter h1 {
+    text-align: center;
+    font-size: 42px;
+    letter-spacing: 14px;
+    font-weight: 300;
+    margin-bottom: 44px;
+    text-shadow: 0 0 24px rgba(255,182,193,.9);
+  }
+  #letter p {
+    font-size: 18px;
+    line-height: 2.2;
+    letter-spacing: 2px;
+    margin: 26px 0;
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 1.2s ease, transform 1.2s ease;
+    text-shadow: 0 1px 10px rgba(0,0,0,.35);
+  }
+  #letter p.show { opacity: 1; transform: translateY(0); }
+  #letter .big {
+    text-align: center;
+    font-size: 40px;
+    color: #ffd6e7;
+    font-weight: 600;
+    letter-spacing: 10px;
+    margin: 46px 0;
+    text-shadow: 0 0 30px rgba(255,107,157,.95);
+    animation: heartbeat 1.6s infinite;
+  }
+  @keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    14%      { transform: scale(1.12); }
+    28%      { transform: scale(1); }
+    42%      { transform: scale(1.12); }
+    70%      { transform: scale(1); }
+  }
+  #letter .sign {
+    text-align: right;
+    font-size: 16px;
+    opacity: .9;
+  }
+
+  /* ============ 音乐按钮 ============ */
+  #musicBtn {
+    position: fixed;
+    right: 22px; top: 22px;
+    width: 52px; height: 52px;
+    font-size: 24px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,.65);
+    background: rgba(255,255,255,.14);
+    color: #fff;
+    cursor: pointer;
+    z-index: 20;
+    transition: transform .3s;
+  }
+  #musicBtn:hover { transform: scale(1.12); }
+  #musicBtn.playing { animation: spin 6s linear infinite; }
+  @keyframes spin { from { transform: rotate(0); } to { transform: rotate(360deg); } }
+
+  .hidden { display: none !important; }
+
+  /* 手机适配 */
+  @media (max-width: 640px) {
+    #letter { padding: 10vh 22px 140px; }
+    #letter h1 { font-size: 32px; letter-spacing: 8px; }
+    #letter p { font-size: 16px; }
+    #letter .big { font-size: 30px; }
+    .envelope { font-size: 66px; }
+    .gate-title { font-size: 20px; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- 开场信封（点击后进入并播放音乐） -->
+  <div id="gate">
+    <div class="envelope">💌</div>
+    <div class="gate-title">慧宝儿，有一封信等你拆开</div>
+    <div class="gate-sub">🎧 建议戴上耳机哦</div>
+    <button id="openBtn">拆 开 这 封 信</button>
+  </div>
+
+  <!-- 表白信正文 -->
+  <main id="letter" class="hidden">
+    <h1>致 慧 宝 儿</h1>
+
+    <p>有些话，平时总是说不出口，</p>
+    <p>今天就把它们都装进气球里，送给你。</p>
+
+    <p>自从遇见你，</p>
+    <p>我的世界就被调成了暖色——</p>
+    <p>你一笑，全世界都在放晴；</p>
+    <p>你一皱眉，我就想把星星摘下来哄你开心。</p>
+
+    <p>如果喜欢有形状，</p>
+    <p>那一定是今晚飘满屏幕的气球，</p>
+    <p>每一只上面，都写着同一句话：</p>
+
+    <p class="big">我 喜 欢 你</p>
+
+    <p>往后的每一天，也请多多指教。</p>
+    <p class="sign">—— 一个把你放在心尖上的人</p>
+  </main>
+
+  <!-- 音乐开关 -->
+  <button id="musicBtn" class="hidden" title="音乐开关">🎵</button>
+
+  <!-- 背景音乐：优先 mp3，没有 mp3 文件时自动用 flac -->
+  <audio id="bgm" loop preload="auto">
+    <source src="music/bgm.mp3" type="audio/mpeg">
+    <source src="music/bgm.flac" type="audio/flac">
+  </audio>
+
+<script>
+  /* ================== 表白文案（想改的话直接改这里） ================== */
+  const HER_NAME = '慧宝儿';
+
+  /* ================== 星空背景生成 ================== */
+  (function makeStars() {
+    const n = 120;
+    for (let i = 0; i < n; i++) {
+      const s = document.createElement('div');
+      s.className = 'star';
+      const size = Math.random() * 2.2 + 0.6;
+      s.style.width = size + 'px';
+      s.style.height = size + 'px';
+      s.style.left = Math.random() * 100 + 'vw';
+      s.style.top = Math.random() * 100 + 'vh';
+      s.style.animationDelay = Math.random() * 3 + 's';
+      document.body.appendChild(s);
+    }
+  })();
+
+  const bgm = document.getElementById('bgm');
+  const musicBtn = document.getElementById('musicBtn');
+  const gate = document.getElementById('gate');
+  const letter = document.getElementById('letter');
+  let started = false;
+
+  /* ================== 点击开场：音乐起 + 气球升 + 信浮现 ================== */
+  document.getElementById('openBtn').addEventListener('click', () => {
+    if (started) return;
+    started = true;
+
+    // 播放背景音乐（浏览器要求必须有用户点击才能出声）
+    bgm.volume = 0.32;
+    bgm.play().catch(err => console.log('音乐播放失败(不影响页面)', err));
+    musicBtn.classList.remove('hidden');
+    musicBtn.classList.add('playing');
+
+    // 信封淡出、正文浮现
+    gate.classList.add('fadeout');
+    setTimeout(() => gate.classList.add('hidden'), 1100);
+    letter.classList.remove('hidden');
+    setTimeout(() => letter.classList.add('show'), 120);
+
+    // 表白段落逐行浮现（每 900ms 亮一段）
+    const ps = letter.querySelectorAll('p');
+    ps.forEach((p, idx) => setTimeout(() => p.classList.add('show'), 900 + idx * 850));
+
+    // 气球工厂：持续放飞气球（含一只特殊的大气球压轴）
+    spawnBalloon();
+    setInterval(spawnBalloon, 1400);
+    setInterval(spawnHeart, 2600);
+  });
+
+  /* ================== 气球与爱心生成 ================== */
+  const colors = [
+    ['#ff6b9d', '#ff8e53'], ['#8e6bff', '#6bb6ff'],
+    ['#ffd86b', '#ff6b9d'], ['#6bffb0', '#6bb6ff'],
+    ['#ff8e8e', '#c86bff']
+  ];
+  function spawnBalloon() {
+    const b = document.createElement('div');
+    b.className = 'balloon';
+    const [c1, c2] = colors[Math.floor(Math.random() * colors.length)];
+    b.style.background = `radial-gradient(circle at 30% 25%, ${c1}, ${c2})`;
+    b.style.left = Math.random() * 92 + 'vw';
+    const dur = Math.random() * 5 + 8;               // 8~13 秒飘完
+    b.style.animationDuration = dur + 's';
+    const size = Math.random() * 26 + 54;            // 54~80px
+    b.style.width = size + 'px';
+    b.style.height = size * 1.25 + 'px';
+    document.body.appendChild(b);
+    setTimeout(() => b.remove(), dur * 1000 + 500);
+  }
+  function spawnHeart() {
+    const h = document.createElement('div');
+    h.className = 'heart-float';
+    h.textContent = '❤';
+    h.style.left = Math.random() * 94 + 'vw';
+    h.style.fontSize = Math.random() * 16 + 12 + 'px';
+    h.style.color = Math.random() > .5 ? '#ff6b9d' : '#ffd6e7';
+    const dur = Math.random() * 3 + 5;
+    h.style.animationDuration = dur + 's';
+    document.body.appendChild(h);
+    setTimeout(() => h.remove(), dur * 1000);
+  }
+
+  /* ================== 音乐开关按钮 ================== */
+  musicBtn.addEventListener('click', () => {
+    if (bgm.paused) {
+      bgm.play().catch(() => {});
+      musicBtn.textContent = '🎵';
+      musicBtn.classList.add('playing');
+    } else {
+      bgm.pause();
+      musicBtn.textContent = '🔇';
+      musicBtn.classList.remove('playing');
+    }
+  });
+</script>
+</body>
+</html>
