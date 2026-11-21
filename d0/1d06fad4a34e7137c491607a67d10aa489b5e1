@@ -1,0 +1,18 @@
+.nojekyll
+  h_25ce05bdaee106 1
+README.md
+  h_25ce05bdaee106 1-40
+index.html
+  h_25ce05bdaee106 1-822
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d01d06fad4a34e7137c491607a67d10aa489b5e1",
+  "prompts": {},
+  "humans": {
+    "h_25ce05bdaee106": {
+      "author": "kael.chen <kael.chen@jtexpress.com>"
+    }
+  }
+}
