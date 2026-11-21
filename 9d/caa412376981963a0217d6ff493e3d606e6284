@@ -1,0 +1,18 @@
+.qa-list.js
+  h_25ce05bdaee106 1-22
+index.html
+  h_25ce05bdaee106 363-367,370-377
+发布/index.html
+  h_25ce05bdaee106 1-822
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "9dcaa412376981963a0217d6ff493e3d606e6284",
+  "prompts": {},
+  "humans": {
+    "h_25ce05bdaee106": {
+      "author": "kael.chen <kael.chen@jtexpress.com>"
+    }
+  }
+}
